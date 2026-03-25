@@ -1,17 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
-Route::get('/', function () {
-    return view('welcome');
-});
+use Illuminate\Support\Facades\Auth;
 
 Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-
-use Illuminate\Support\Facades\Auth;
 
 // Landing page (usuarios NO logueados)
 Route::get('/', function () {
@@ -25,3 +17,8 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware('auth');
+
+// Ruta por defecto después de login (opcional)
+Route::get('/home', function () {
+    return redirect('/dashboard');
+})->name('home');
